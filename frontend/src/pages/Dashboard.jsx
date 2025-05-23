@@ -112,7 +112,7 @@ const Dashboard = () => {
                 Welcome back, {user?.displayName || format.truncateAddress(user?.walletAddress)}
               </h1>
               <p className="mt-2 text-gray-600">
-                Track your POGPP journey and manage your verified locations
+                Track your POLP journey and manage your verified locations
               </p>
             </div>
             <div className="mt-4 sm:mt-0">
@@ -385,7 +385,7 @@ const Dashboard = () => {
                   <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                 </svg>
                 <p className="text-gray-500 text-lg">Activity charts coming soon</p>
-                <p className="text-gray-400 text-sm mt-2">Track your POGPP journey with detailed analytics</p>
+                <p className="text-gray-400 text-sm mt-2">Track your POLP journey with detailed analytics</p>
               </div>
             </div>
           )}

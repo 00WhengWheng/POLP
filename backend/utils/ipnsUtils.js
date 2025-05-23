@@ -37,7 +37,7 @@ class IPNSUtils {
       
       // Create a hash to ensure valid key name format
       const hash = crypto.createHash('sha256').update(combined, 'utf8').digest('hex');
-      return `pogpp-${contentType}-${hash.substring(0, 16)}`;
+      return `polp-${contentType}-${hash.substring(0, 16)}`;
     } catch (error) {
       throw new Error(`Failed to generate key name: ${error.message}`);
     }
@@ -275,7 +275,7 @@ class IPNSUtils {
       const allKeys = await ipfs.key.list();
       
       // Filter keys that belong to this user
-      const userKeyPrefix = `pogpp-.*-.*${userId}.*`;
+      const userKeyPrefix = `polp-.*-.*${userId}.*`;
       const userKeys = allKeys.filter(key => 
         key.name.includes(`-${userId}-`) || key.name.includes(`${userId}`)
       );

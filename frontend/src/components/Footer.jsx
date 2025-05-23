@@ -38,7 +38,7 @@ const Footer = ({ className = '' }) => {
     {
       title: 'Protocol',
       links: [
-        { name: 'About POGPP', href: '#' },
+        { name: 'About POLP', href: '#' },
         { name: 'How it Works', href: '#' },
         { name: 'Smart Contract', href: '#' },
         { name: 'Whitepaper', href: '#' }
@@ -92,7 +92,7 @@ const Footer = ({ className = '' }) => {
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span className="text-xl font-bold">POGPP</span>
+                <span className="text-xl font-bold">POLP</span>
               </div>
               
               <p className="text-gray-300 text-sm max-w-md">
@@ -169,7 +169,7 @@ const Footer = ({ className = '' }) => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
-              <p>&copy; {currentYear} POGPP. All rights reserved.</p>
+              <p>&copy; {currentYear} POLP. All rights reserved.</p>
               <div className="flex items-center space-x-4">
                 <span className="hidden md:block">•</span>
                 <a href="#" className="hover:text-white transition-colors">Privacy</a>

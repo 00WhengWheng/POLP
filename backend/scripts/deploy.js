@@ -32,7 +32,7 @@ class DeploymentScript {
    */
   async deploy() {
     try {
-      logger.info('Starting POGPP deployment process...');
+      logger.info('Starting POLP deployment process...');
       
       // Step 1: Validate environment
       await this.validateEnvironment();
@@ -55,7 +55,7 @@ class DeploymentScript {
       // Step 7: Save deployment info
       await this.saveDeploymentInfo();
       
-      logger.info(' POGPP deployment completed successfully!');
+      logger.info(' POLP deployment completed successfully!');
       
     } catch (error) {
       logger.error('L Deployment failed:', error);
@@ -67,7 +67,8 @@ class DeploymentScript {
    * Validate required environment variables
    */
   async validateEnvironment() {
-    logger.info('= Validating environment configuration...');
+    logger.info('=
+ Validating environment configuration...');
     
     const required = [
       'PRIVATE_KEY',
@@ -134,11 +135,11 @@ class DeploymentScript {
    * Deploy smart contracts
    */
   async deployContracts() {
-    logger.info('=Ý Deploying smart contracts...');
+    logger.info('=ï¿½ Deploying smart contracts...');
     
     try {
-      // Read POGPPBadge contract
-      const contractPath = path.join(this.deploymentConfig.contractsDir, 'POGPPBadge.sol');
+      // Read POLPBadge contract
+      const contractPath = path.join(this.deploymentConfig.contractsDir, 'POLPBadge.sol');
       const contractSource = await fs.readFile(contractPath, 'utf8');
       
       logger.info('Contract source loaded, compiling...');
@@ -147,11 +148,11 @@ class DeploymentScript {
       // In a real deployment, you'd use hardhat, truffle, or solc to compile
       
       // Mock deployment - replace with actual contract deployment
-      const mockDeployment = await this.deployPOGPPBadge();
+      const mockDeployment = await this.deployPOLPBadge();
       
-      this.deployedContracts.POGPPBadge = mockDeployment;
+      this.deployedContracts.POLPBadge = mockDeployment;
       
-      logger.info(` POGPPBadge deployed at: ${mockDeployment.address}`);
+      logger.info(` POLPBadge deployed at: ${mockDeployment.address}`);
       
     } catch (error) {
       throw new Error(`Contract deployment failed: ${error.message}`);
@@ -159,10 +160,10 @@ class DeploymentScript {
   }
 
   /**
-   * Deploy POGPPBadge contract (mock implementation)
+   * Deploy POLPBadge contract (mock implementation)
    */
-  async deployPOGPPBadge() {
-    logger.info('Deploying POGPPBadge contract...');
+  async deployPOLPBadge() {
+    logger.info('Deploying POLPBadge contract...');
     
     // This is a mock deployment - in reality you'd compile and deploy the actual contract
     const mockAddress = '0x' + Array(40).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join('');
@@ -177,7 +178,7 @@ class DeploymentScript {
       blockNumber: await this.provider.getBlockNumber(),
       deployer: this.signer.address,
       deployedAt: new Date().toISOString(),
-      contractName: 'POGPPBadge',
+      contractName: 'POLPBadge',
       network: this.deploymentConfig.network
     };
   }
@@ -241,7 +242,7 @@ class DeploymentScript {
    * Setup database
    */
   async setupDatabase() {
-    logger.info('=Ä Setting up database...');
+    logger.info('=ï¿½ Setting up database...');
     
     try {
       // Initialize database connection
@@ -279,14 +280,15 @@ class DeploymentScript {
    * Verify deployment
    */
   async verifyDeployment() {
-    logger.info('= Verifying deployment...');
+    logger.info('=
+ Verifying deployment...');
     
     try {
       // Check contract deployment
-      if (this.deployedContracts.POGPPBadge) {
-        const code = await this.provider.getCode(this.deployedContracts.POGPPBadge.address);
+      if (this.deployedContracts.POLPBadge) {
+        const code = await this.provider.getCode(this.deployedContracts.POLPBadge.address);
         if (code === '0x') {
-          throw new Error('POGPPBadge contract not found at deployed address');
+          throw new Error('POLPBadge contract not found at deployed address');
         }
       }
       
@@ -317,7 +319,7 @@ class DeploymentScript {
    * Save deployment information
    */
   async saveDeploymentInfo() {
-    logger.info('=¾ Saving deployment information...');
+    logger.info('=ï¿½ Saving deployment information...');
     
     try {
       const deploymentInfo = {
@@ -378,11 +380,11 @@ class DeploymentScript {
       }
 
       // Update contract address
-      if (this.deployedContracts.POGPPBadge) {
-        const contractAddress = `POGPP_CONTRACT_ADDRESS=${this.deployedContracts.POGPPBadge.address}`;
+      if (this.deployedContracts.POLPBadge) {
+        const contractAddress = `POLP_CONTRACT_ADDRESS=${this.deployedContracts.POLPBadge.address}`;
         
-        if (envContent.includes('POGPP_CONTRACT_ADDRESS=')) {
-          envContent = envContent.replace(/POGPP_CONTRACT_ADDRESS=.*/, contractAddress);
+        if (envContent.includes('POLP_CONTRACT_ADDRESS=')) {
+          envContent = envContent.replace(/POLP_CONTRACT_ADDRESS=.*/, contractAddress);
         } else {
           envContent += `\n${contractAddress}\n`;
         }

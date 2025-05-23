@@ -118,7 +118,7 @@ const Home = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              How POGPP Works
+              How POLP Works
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Three simple steps to verify your location and earn NFT badges
@@ -160,7 +160,7 @@ const Home = () => {
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold text-white mb-4">
-                Your POGPP Journey
+                Your POLP Journey
               </h2>
               <p className="text-blue-100 text-lg">
                 Track your verified locations and earned badges

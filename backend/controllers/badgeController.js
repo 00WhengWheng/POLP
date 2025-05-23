@@ -81,7 +81,7 @@ class BadgeController {
 
       // Generate badge metadata
       const metadata = {
-        name: `POGPP Badge - ${visit.locationName}`,
+        name: `POLP Badge - ${visit.locationName}`,
         description: `Proof of presence at ${visit.locationName} on ${visit.timestamp.toISOString()}`,
         image: '', // Will be set after IPFS upload
         attributes: [

@@ -10,7 +10,7 @@ import badgeReducer from '../features/badges/badgeSlice';
 
 // Redux persist configuration
 const persistConfig = {
-  key: 'pogpp-root',
+  key: 'polp-root',
   storage,
   whitelist: ['user'], // Only persist user state
   blacklist: ['visits', 'badges'] // Don't persist visits and badges (fresh data on each session)
@@ -18,7 +18,7 @@ const persistConfig = {
 
 // User-specific persist config
 const userPersistConfig = {
-  key: 'pogpp-user',
+  key: 'polp-user',
   storage,
   whitelist: ['walletAddress', 'username', 'isAuthenticated', 'profile']
 };

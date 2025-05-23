@@ -78,8 +78,8 @@ const createSigner = (privateKey = null, networkName = null) => {
 
 // Contract configuration
 const contracts = {
-  POGPPBadge: {
-    address: process.env.POGPP_CONTRACT_ADDRESS,
+  POLPBadge: {
+    address: process.env.POLP_CONTRACT_ADDRESS,
     abi: [
       "function claimBadge(address to, uint256 badgeId, string memory tokenURI) external",
       "function claimed(address user, uint256 badgeId) external view returns (bool)",
@@ -189,10 +189,10 @@ const initializeWeb3 = async () => {
     }
 
     // Test contract connection if address is configured
-    if (process.env.POGPP_CONTRACT_ADDRESS) {
-      const contract = getContract('POGPPBadge', provider);
+    if (process.env.POLP_CONTRACT_ADDRESS) {
+      const contract = getContract('POLPBadge', provider);
       const nextTokenId = await contract.nextTokenId();
-      logger.info(`POGPPBadge contract connected, next token ID: ${nextTokenId}`);
+      logger.info(`POLPBadge contract connected, next token ID: ${nextTokenId}`);
     }
 
     logger.info('Web3 configuration initialized successfully');

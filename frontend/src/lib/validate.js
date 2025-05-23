@@ -81,7 +81,7 @@ export const validateUsername = (username) => {
   }
 
   // Check for reserved usernames
-  const reservedUsernames = ['admin', 'root', 'user', 'pogpp', 'api', 'system'];
+  const reservedUsernames = ['admin', 'root', 'user', 'polp', 'api', 'system'];
   if (reservedUsernames.includes(username.toLowerCase())) {
     return { valid: false, error: 'This username is reserved' };
   }

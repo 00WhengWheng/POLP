@@ -6,7 +6,7 @@ const config = {
   development: {
     username: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || 'password',
-    database: process.env.DB_NAME || 'pogpp_dev',
+    database: process.env.DB_NAME || 'polp_dev',
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 5432,
     dialect: 'postgres',
@@ -21,7 +21,7 @@ const config = {
   test: {
     username: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || 'password',
-    database: process.env.DB_NAME_TEST || 'pogpp_test',
+    database: process.env.DB_NAME_TEST || 'polp_test',
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 5432,
     dialect: 'postgres',

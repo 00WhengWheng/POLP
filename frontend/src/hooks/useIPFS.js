@@ -333,7 +333,7 @@ const useIPFS = () => {
       version: '1.0',
       data: visitData,
       timestamp: new Date().toISOString(),
-      appName: 'POGPP'
+      appName: 'POLP'
     };
 
     return await uploadData(metadata, {
@@ -346,17 +346,17 @@ const useIPFS = () => {
   // Upload badge metadata
   const uploadBadgeMetadata = useCallback(async (badgeData) => {
     const metadata = {
-      name: badgeData.name || `POGPP Badge - ${badgeData.locationName}`,
+      name: badgeData.name || `POLP Badge - ${badgeData.locationName}`,
       description: badgeData.description || `Proof of presence at ${badgeData.locationName}`,
       image: badgeData.imageUrl || '',
-      external_url: process.env.REACT_APP_FRONTEND_URL || 'https://pogpp.app',
+      external_url: process.env.REACT_APP_FRONTEND_URL || 'https://polp.app',
       attributes: badgeData.attributes || [],
       properties: {
         visitId: badgeData.visitId,
         nfcTagId: badgeData.nfcTagId,
         coordinates: `${badgeData.latitude}, ${badgeData.longitude}`,
         timestamp: badgeData.timestamp,
-        type: 'POGPP_Badge'
+        type: 'POLP_Badge'
       }
     };
 

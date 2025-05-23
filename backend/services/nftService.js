@@ -1,7 +1,7 @@
 const { ethers } = require('ethers');
 const logger = require('../utils/logger');
 
-// POGPPBadge contract ABI (minimal interface)
+// POLPBadge contract ABI (minimal interface)
 const BADGE_CONTRACT_ABI = [
   "function claimBadge(address to, uint256 badgeId, string memory tokenURI) external",
   "function claimed(address user, uint256 badgeId) external view returns (bool)",
@@ -16,7 +16,7 @@ class NFTService {
   constructor() {
     this.provider = new ethers.JsonRpcProvider(process.env.GNOSIS_RPC_URL);
     this.signer = new ethers.Wallet(process.env.PRIVATE_KEY, this.provider);
-    this.contractAddress = process.env.POGPP_CONTRACT_ADDRESS;
+    this.contractAddress = process.env.POLP_CONTRACT_ADDRESS;
     this.contract = new ethers.Contract(this.contractAddress, BADGE_CONTRACT_ABI, this.signer);
   }
 

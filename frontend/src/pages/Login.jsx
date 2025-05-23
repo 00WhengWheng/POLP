@@ -33,7 +33,7 @@ const Login = () => {
 
   const handleSignAndLogin = async () => {
     try {
-      const message = `Welcome to POGPP!\n\nSign this message to authenticate your wallet.\n\nNonce: ${Date.now()}`;
+      const message = `Welcome to POLP!\n\nSign this message to authenticate your wallet.\n\nNonce: ${Date.now()}`;
       const signature = await signMessage(message);
       
       const userInfo = {
@@ -100,7 +100,7 @@ const Login = () => {
         };
       case 'complete':
         return {
-          title: 'Welcome to POGPP!',
+          title: 'Welcome to POLP!',
           description: 'Authentication successful. Redirecting to your dashboard...',
           loading: true
         };
@@ -259,7 +259,7 @@ const Login = () => {
           >
             <div className="text-center lg:text-left">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                Why Choose POGPP?
+                Why Choose POLP?
               </h2>
               <p className="text-gray-600">
                 Join the future of location verification with blockchain technology

@@ -98,7 +98,7 @@ class IPFSService {
       // Add IPFS-specific metadata
       const enrichedMetadata = {
         ...metadata,
-        external_url: process.env.FRONTEND_URL || 'https://pogpp.app',
+        external_url: process.env.FRONTEND_URL || 'https://polp.app',
         created_at: new Date().toISOString(),
         ipfs_version: '1.0'
       };

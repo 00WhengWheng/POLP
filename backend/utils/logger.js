@@ -60,7 +60,7 @@ const logger = winston.createLogger({
   levels: logLevels,
   level: process.env.LOG_LEVEL || 'info',
   defaultMeta: {
-    service: 'pogpp-backend',
+    service: 'polp-backend',
     version: process.env.npm_package_version || '1.0.0'
   },
   transports: [

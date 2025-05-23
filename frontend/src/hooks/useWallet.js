@@ -39,7 +39,7 @@ const useWallet = () => {
           uiConfig: {
             theme: "light",
             loginMethodsOrder: ["google", "github", "twitter"],
-            appName: "POGPP",
+            appName: "POLP",
             appLogo: "/logo.svg",
           }
         });
@@ -223,7 +223,7 @@ const useWallet = () => {
       const connectionResult = await connect();
       
       // Generate challenge message
-      const message = `POGPP Authentication Challenge\n\nWallet: ${connectionResult.walletAddress}\nTimestamp: ${Date.now()}\nNonce: ${Math.random().toString(36).substring(7)}`;
+      const message = `POLP Authentication Challenge\n\nWallet: ${connectionResult.walletAddress}\nTimestamp: ${Date.now()}\nNonce: ${Math.random().toString(36).substring(7)}`;
       
       // Sign the message
       const signature = await signMessage(message);

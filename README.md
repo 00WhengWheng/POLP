@@ -105,4 +105,4 @@ Questo progetto è open-source e rilasciato sotto licenza MIT.
 Contatti e Collaborazioni
 --------------------------
 
-Per contribuire o proporre partnership, contattare: `dev@polp.spaces`
+Per contribuire o proporre partnership, contattare: `dev@polp.space`

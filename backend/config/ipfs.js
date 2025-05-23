@@ -153,7 +153,7 @@ const pinToServices = async (cid, metadata = {}) => {
         body: JSON.stringify({
           hashToPin: cid,
           pinataMetadata: {
-            name: metadata.name || `POGPP-${cid}`,
+            name: metadata.name || `POLP-${cid}`,
             keyvalues: metadata
           }
         })
@@ -186,7 +186,7 @@ const initializeIPFS = async () => {
     logger.info(`Connected to IPFS node: ${nodeId.id}`);
     
     // Test basic functionality
-    const testData = Buffer.from('POGPP IPFS test');
+    const testData = Buffer.from('POLP IPFS test');
     const result = await client.add(testData);
     logger.info(`IPFS test upload successful: ${result.cid}`);
     

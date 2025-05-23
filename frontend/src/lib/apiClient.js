@@ -17,7 +17,7 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     // Get token from localStorage
-    const token = localStorage.getItem('pogpp_token');
+    const token = localStorage.getItem('polp_token');
     
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -56,7 +56,7 @@ apiClient.interceptors.response.use(
       switch (error.response.status) {
         case 401:
           // Unauthorized - clear token and redirect to login
-          localStorage.removeItem('pogpp_token');
+          localStorage.removeItem('polp_token');
           window.location.href = '/login';
           break;
         case 403:
@@ -182,22 +182,22 @@ const utils = {
   // Set authentication token
   setAuthToken: (token) => {
     if (token) {
-      localStorage.setItem('pogpp_token', token);
+      localStorage.setItem('polp_token', token);
       apiClient.defaults.headers.Authorization = `Bearer ${token}`;
     } else {
-      localStorage.removeItem('pogpp_token');
+      localStorage.removeItem('polp_token');
       delete apiClient.defaults.headers.Authorization;
     }
   },
 
   // Get authentication token
   getAuthToken: () => {
-    return localStorage.getItem('pogpp_token');
+    return localStorage.getItem('polp_token');
   },
 
   // Check if user is authenticated
   isAuthenticated: () => {
-    return !!localStorage.getItem('pogpp_token');
+    return !!localStorage.getItem('polp_token');
   },
 
   // Handle API errors

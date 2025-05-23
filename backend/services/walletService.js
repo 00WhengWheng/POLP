@@ -34,7 +34,7 @@ class WalletService {
    * @returns {string} - Challenge message to be signed
    */
   generateAuthChallenge(walletAddress, timestamp = Date.now()) {
-    return `POGPP Authentication Challenge\n\nWallet: ${walletAddress}\nTimestamp: ${timestamp}\nNonce: ${Math.random().toString(36).substring(7)}`;
+    return `POLP Authentication Challenge\n\nWallet: ${walletAddress}\nTimestamp: ${timestamp}\nNonce: ${Math.random().toString(36).substring(7)}`;
   }
 
   /**
@@ -98,7 +98,7 @@ class WalletService {
    * @param {string} domain - Domain information
    * @returns {object} - Typed data structure
    */
-  createTypedData(data, domain = 'POGPP') {
+  createTypedData(data, domain = 'POLP') {
     return {
       types: {
         EIP712Domain: [
