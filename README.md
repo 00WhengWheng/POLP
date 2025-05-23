@@ -87,13 +87,6 @@ Certificare su blockchain che un utente si sia trovato in un luogo fisico specif
 
 ---
 
-📁 Struttura delle cartelle
-----------------------------
-
-Vedi `tree` dettagliato all’interno delle cartelle `/backend` e `/frontend`.
-
----
-
 👷‍♂️ Stato del progetto
 ------------------------
 
