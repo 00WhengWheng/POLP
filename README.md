@@ -85,6 +85,47 @@ Certificare su blockchain che un utente si sia trovato in un luogo fisico specif
 6. Se valido e non già registrato, viene mintato un NFT Badge.
 7. Tutto il processo è tracciabile e verificabile on-chain.
 
+
+---
+
+🐳 Esecuzione con Docker
+------------------------
+
+Il progetto è completamente containerizzato e può essere avviato facilmente tramite Docker Compose. Sono forniti Dockerfile specifici per backend (Node.js 22.13.1) e frontend (Node.js 22.13.1), oltre a un servizio PostgreSQL.
+
+**Requisiti**
+- Docker e Docker Compose installati
+- Nessuna dipendenza locale richiesta: tutte le dipendenze (inclusi build-essential, faiss-node, ipfs, ecc.) sono gestite nei container
+
+**Porte esposte**
+- Backend API: `4000` (http://localhost:4000)
+- Frontend: `4173` (http://localhost:4173)
+- PostgreSQL: `5432` (solo per sviluppo, non esposto pubblicamente)
+
+**Variabili d'ambiente**
+- Le variabili d'ambiente possono essere definite nei file `.env` all'interno di `./backend` e `./frontend` (vedi i commenti nel `docker-compose.yml`).
+- Per PostgreSQL, le credenziali di default sono:
+  - `POSTGRES_USER=polp`
+  - `POSTGRES_PASSWORD=polp`
+  - `POSTGRES_DB=polp`
+
+**Avvio rapido**
+1. Clona il repository e posizionati nella root del progetto.
+2. Avvia tutti i servizi:
+   \```sh
+   docker compose up --build
+   \```
+3. Accedi ai servizi:
+   - Frontend: [http://localhost:4173](http://localhost:4173)
+   - Backend API: [http://localhost:4000](http://localhost:4000)
+
+**Note e configurazioni**
+- I dati del database non sono persistenti di default. Per persistenza, decommenta la sezione `volumes` relativa a `postgres` nel `docker-compose.yml`.
+- Puoi personalizzare le variabili d'ambiente creando i file `.env` nelle rispettive cartelle.
+- Il backend e il frontend sono eseguiti come utenti non-root per maggiore sicurezza.
+
+Per dettagli avanzati consulta i Dockerfile in `./backend` e `./frontend` e il file `docker-compose.yml`.
+
 ---
 
 👷‍♂️ Stato del progetto
