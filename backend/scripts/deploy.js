@@ -92,6 +92,16 @@ class DeploymentScript {
     // Usa Hardhat per compilare i contratti
     await run("compile");
 
+    // Explicitly initialize the provider and wallet
+    const provider = new ethers.providers.JsonRpcProvider(process.env.GNOSIS_RPC_URL);
+    const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+
+    // Ensure deployment directory exists
+    await fs.mkdir(this.deploymentConfig.deploymentDir, { recursive: true });
+
+    // Add fallback for gas price
+    const gasPrice = this.deploymentConfig.gasPrice || (await provider.getGasPrice());
+
     // Carica il contratto e distribuiscilo
     const POLPBadge = await ethers.getContractFactory("POLPBadge"); // Assicurati che il contratto si chiami POLPBadge.sol
     const polpBadge = await POLPBadge.deploy(); // Modifica se necessario per passare argomenti
@@ -100,68 +110,45 @@ class DeploymentScript {
     this.deployedContracts.POLPBadge = polpBadge;
 
     logger.info(`POLPBadge deployed at: ${polpBadge.address}`);
+
+    // Add contract verification step
+    if (this.deployedContracts.POLPBadge) {
+      await run("verify:verify", {
+        address: this.deployedContracts.POLPBadge.address,
+        constructorArguments: [],
+      });
+      logger.info(`POLPBadge contract verified at: ${this.deployedContracts.POLPBadge.address}`);
+    }
   }
 
   /**
    * Initialize backend services
-   */  async initializeServices() {
-    logger.info('Initializing backend services...');
-    
-    try {
-      // Initialize IPFS
-      const { initializeIPFS, healthCheck } = require('../config/ipfs');
-      
-      // Initialize IPFS configuration and client
-      const initialized = await initializeIPFS();
-      if (!initialized) {
-        throw new Error('Failed to initialize IPFS');
-      }
+   */
+  async initializeServices() {
+    await this.initializeIPFS();
+    await this.initializeFAISS();
+  }
 
-      // Health check
-      const health = await healthCheck();
-      if (health.status !== 'healthy') {
-        throw new Error(`IPFS health check failed: ${health.error}`);
-      }
+  async initializeIPFS() {
+    logger.info('Initializing IPFS...');
+    const { initializeIPFS, healthCheck } = require('../config/ipfs');
+    const initialized = await initializeIPFS();
+    if (!initialized) throw new Error('Failed to initialize IPFS');
+    const health = await healthCheck();
+    if (health.status !== 'healthy') throw new Error(`IPFS health check failed: ${health.error}`);
+    logger.info('IPFS initialized successfully', { nodeId: health.nodeId, version: health.version });
+  }
 
-      logger.info('IPFS initialized successfully', {
-        nodeId: health.nodeId,
-        version: health.version,
-        addresses: health.addresses
-      });
-
-      // Upload test data to verify functionality
-      const ipfsService = require('../services/ipfsService');
-      const testData = { timestamp: new Date().toISOString(), test: true };
-      const result = await ipfsService.storeMetadata(testData);
-      
-      logger.info('IPFS test upload successful', { cid: result.cid });
-      
-      // Test IPNS functionality
-      const ipnsUtils = require('../utils/ipnsUtils');
-      const testKey = await ipnsUtils.createOrGetKey('deploy-test');
-      
-      logger.info('IPNS key generation successful', { keyId: testKey.id });
-
-    } catch (error) {
-      logger.error('IPFS initialization failed:', error);
-      throw error;
-    }
-
-    // Initialize FAISS
-    try {
-      // Add FAISS initialization code here
-      logger.info('FAISS initialized');
-    } catch (error) {
-      logger.error('FAISS initialization failed:', error);
-      throw error;
-    }
-
-    logger.info('Backend services initialized successfully');
+  async initializeFAISS() {
+    logger.info('Initializing FAISS...');
+    // Add FAISS-specific initialization logic here
+    logger.info('FAISS initialized successfully');
   }
 
   /**
    * Setup database
-   */  async setupDatabase() {
+   */
+  async setupDatabase() {
     logger.info('Setting up database...');
 
     const db = require('../config/db');

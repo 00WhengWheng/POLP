@@ -5,7 +5,8 @@ require("solidity-coverage");
 require("dotenv").config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {  solidity: {
+module.exports = { 
+  solidity: {
     version: "0.8.26",
     settings: {
       optimizer: {
@@ -14,16 +15,27 @@ module.exports = {  solidity: {
       }
     }
   },
+  networks: {
+    hardhat: {
+      chainId: 31337
+    },
+    gnosis: {
+      url: "https://rpc.gnosischain.com",
+      accounts: [process.env.PRIVATE_KEY],
+      chainId: 100,
+    },
+    chiado: {
+      url: "https://rpc.chiadochain.net",
+      accounts: [process.env.PRIVATE_KEY],
+      chainId: 10200,
+    },
+  },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
-    currency: "USD"
+    currency: "EUR"
   },
   mocha: {
     timeout: 40000
-  },networks: {
-    hardhat: {
-      chainId: 31337
-    }
   },
   paths: {
     sources: "./contracts",
