@@ -74,17 +74,16 @@ class FAISSService {
    * Convert visit data to text for vectorization
    * @param {object} visitData - Visit data
    * @returns {string} - Text representation
-   */
-  visitDataToText(visitData) {
-    const parts = [
-      visitData.locationName || '',
-      visitData.description || '',
-      visitData.nfcTagId || '',
-      `coordinates ${visitData.latitude} ${visitData.longitude}`,
-      new Date(visitData.timestamp).toLocaleDateString()
-    ];
+   */  visitDataToText(visitData) {
+    const parts = [];
+    
+    if (visitData.locationName) parts.push(visitData.locationName);
+    if (visitData.description) parts.push(visitData.description);
+    if (visitData.nfcTagId) parts.push(visitData.nfcTagId);
+    if (visitData.latitude && visitData.longitude) parts.push(`coordinates ${visitData.latitude} ${visitData.longitude}`);
+    if (visitData.timestamp) parts.push(new Date(visitData.timestamp).toLocaleDateString());
 
-    return parts.filter(part => part.length > 0).join(' ');
+    return parts.join(' ');
   }
 
   /**
@@ -136,21 +135,19 @@ class FAISSService {
    * @param {Array} vector - Vector to add
    * @param {number} id - ID for the vector
    * @returns {boolean} - True if added successfully
-   */
-  async addVector(vector, id) {
+   */  async addVector(vector, id) {
     try {
       if (!this.isInitialized) {
         await this.initialize();
       }
 
-      // Convert to Float32Array for FAISS
-      const vectorArray = new Float32Array(vector);
+      // Convert to Float32Array and create a buffer with a single vector
+      const buffer = new Float32Array([...vector]);
       
       // Add to index
-      this.index.add(vectorArray);
+      this.index.add(buffer);
 
       logger.debug(`Added vector with ID: ${id}`);
-
       return true;
 
     } catch (error) {
@@ -165,18 +162,22 @@ class FAISSService {
    * @param {number} k - Number of results to return
    * @param {number} userId - Filter by user ID (optional)
    * @returns {Array} - Similar vectors with scores
-   */
-  async searchSimilarVectors(queryVector, k = 10, userId = null) {
+   */  async searchSimilarVectors(queryVector, k = 10, userId = null) {
     try {
       if (!this.isInitialized) {
         await this.initialize();
       }
 
+      // Don't search if index is empty
+      if (this.index.ntotal === 0) {
+        return [];
+      }
+
       // Convert to Float32Array
-      const queryArray = new Float32Array(queryVector);
+      const queryBuffer = new Float32Array([...queryVector]);
 
       // Search index
-      const result = this.index.search(queryArray, k);
+      const result = this.index.search(queryBuffer, Math.min(k, this.index.ntotal));
 
       logger.debug(`Found ${result.labels.length} similar vectors`);
 
@@ -274,8 +275,7 @@ class FAISSService {
   /**
    * Get index statistics
    * @returns {object} - Index statistics
-   */
-  getIndexStats() {
+   */  getIndexStats() {
     try {
       if (!this.isInitialized || !this.index) {
         return {
@@ -285,10 +285,13 @@ class FAISSService {
         };
       }
 
+      // Get the actual number from the ntotal function
+      const totalVectors = typeof this.index.ntotal === 'function' ? this.index.ntotal() : this.index.ntotal;
+
       return {
         initialized: this.isInitialized,
         dimension: this.dimension,
-        totalVectors: this.index.ntotal,
+        totalVectors: totalVectors,
         indexType: 'IndexFlatIP'
       };
 
